@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]   # main is covered by the deploy workflow
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Examples, screenshots and book build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the Ubuntu 26.04 lab image
+        run: docker build -t ubuntu-bash-guide-lab .
+
+      - name: Run every <!-- test --> example
+        run: docker run --rm -v "$PWD:/work" -w /work ubuntu-bash-guide-lab scripts/check-examples.sh
+
+      - name: Generate screenshots from real output
+        run: docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD:/work" -w /work ubuntu-bash-guide-lab scripts/make-screenshots.sh
+
+      - name: Install mdBook
+        env:
+          MDBOOK_VERSION: "0.5.4"
+        run: |
+          curl -fsSL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar -xz
+          sudo install -m 0755 mdbook /usr/local/bin/mdbook
+
+      - name: Build the book
+        run: mdbook build
+
+      - name: ShellCheck repository scripts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq shellcheck
+          shellcheck scripts/*.sh
+
+      - name: Lint Markdown
+        run: npx --yes markdownlint-cli2 "src/**/*.md" "*.md"

@@ -1,0 +1,6 @@
+book/
+src/images/*.svg
+src/images/*.png
+.DS_Store
+*.swp
+tmp/
