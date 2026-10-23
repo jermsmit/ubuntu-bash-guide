@@ -1,0 +1,4 @@
+/* Keep screenshots readable and centred in light and dark themes. */
+.content img { display: block; max-width: 100%; height: auto; margin: 1.25rem auto; border-radius: 8px; }
+.content details { margin: 1rem 0; padding: .5rem 1rem; border: 1px solid var(--quote-border); border-radius: 6px; }
+.content details > summary { cursor: pointer; font-weight: 600; }

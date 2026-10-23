@@ -1,0 +1,6 @@
+Shell scripting is glue.
+Small tools, sharp edges.
+Quote your variables.
+Pipes connect programs.
+Exit codes tell the truth.
+Read the manual first.

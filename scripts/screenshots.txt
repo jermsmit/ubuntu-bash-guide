@@ -1,0 +1,13 @@
+# name | command   (run inside a fresh copy of lab/; colors need --color=always)
+ls-long | ls -l --color=always data
+tree-project | tree project
+grep-errors | grep --color=always -n ' 404 ' data/access.log
+sort-uniq | sort data/fruits.txt | uniq -c | sort -rn
+awk-columns | awk -F, 'NR>1 { print $1, $2 }' data/people.csv
+pipeline-top-ips | awk '{ print $1 }' data/access.log | sort | uniq -c | sort -rn | head -3
+cut-fields | cut -d, -f1,4 data/people.csv
+find-txt | find . -name '*.txt' -type f
+chmod-demo | touch run.sh && ls -l run.sh && chmod u+x run.sh && ls -l run.sh
+jq-demo | printf '{"name":"Ubuntu","version":"26.04"}' | jq .
+shellcheck-demo | shellcheck bad.sh
+version-info | bash --version | head -1; ls --version | head -1; sudo --version | head -1

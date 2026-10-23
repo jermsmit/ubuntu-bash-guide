@@ -1,0 +1,22 @@
+[book]
+title = "The Ubuntu Bash Guide"
+authors = ["Jermal Smith"]
+description = "A modern, hands-on guide to the command line and Bash scripting, tested on Ubuntu 26.04 LTS (Resolute Raccoon)."
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+default-theme = "ayu"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/jermsmit/ubuntu-bash-guide"
+edit-url-template = "https://github.com/jermsmit/ubuntu-bash-guide/edit/main/{path}"
+site-url = "/ubuntu-bash-guide/"
+additional-css = ["theme/custom.css"]
+
+[output.html.search]
+enable = true
+limit-results = 20
